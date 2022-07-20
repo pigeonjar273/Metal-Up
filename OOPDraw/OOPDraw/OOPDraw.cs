@@ -50,7 +50,54 @@ namespace OOPDraw
         {
             dragging = false;
         }
+
+        private void label1_Click(object sender, EventArgs e) { }
+
+        private void label2_Click(object sender, EventArgs e) { }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            float width = currentPen.Width;
+            switch (LineWidth.Text)
+            {
+                case "Thin":
+                    width = 2.0F;
+                    break;
+                case "Medium":
+                    width = 4.0F;
+                    break;
+                case "Thick":
+                    width = 8.0F;
+                    break;
+            }
+            currentPen = new Pen(currentPen.Color, width);
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Color color = currentPen.Color;
+            switch (Colour.Text)
+            {
+                case "Red":
+                    color = Color.Red;
+                    break;
+                case "Blue":
+                    color = Color.Blue;
+                    break;
+                case "Green":
+                    color = Color.Green;
+                    break;
+            }
+            currentPen = new Pen(color, currentPen.Width);
+        }
     }
+
+
+
+
+
+
+
 
 
     public class Line
