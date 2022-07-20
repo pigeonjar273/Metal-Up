@@ -1,8 +1,8 @@
 namespace OOPDraw
 {
-    public partial class Form1 : Form
+    public partial class OOPDraw : Form
     {
-        public Form1()
+        public OOPDraw()
         {
             InitializeComponent();
         }

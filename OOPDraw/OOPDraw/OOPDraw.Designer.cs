@@ -1,6 +1,6 @@
 ﻿namespace OOPDraw
 {
-    partial class Form1
+    partial class OOPDraw
     {
         /// <summary>
         ///  Required designer variable.
