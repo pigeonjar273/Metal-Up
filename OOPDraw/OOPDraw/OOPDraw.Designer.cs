@@ -41,7 +41,7 @@
             this.Canvas.BackColor = System.Drawing.SystemColors.Window;
             this.Canvas.Location = new System.Drawing.Point(252, 24);
             this.Canvas.Name = "Canvas";
-            this.Canvas.Size = new System.Drawing.Size(536, 414);
+            this.Canvas.Size = new System.Drawing.Size(556, 621);
             this.Canvas.TabIndex = 0;
             this.Canvas.TabStop = false;
             this.Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.Canvas_Paint);
@@ -99,7 +99,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(806, 646);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Colour);
             this.Controls.Add(this.label1);
