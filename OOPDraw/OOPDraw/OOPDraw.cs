@@ -9,6 +9,7 @@ namespace OOPDraw
         {
             InitializeComponent();
             DoubleBuffered = true;
+            shapes.Add(new Rectangle(currentPen, 100, 100, 300, 200));
         }
         private void Form1_Load(object sender, EventArgs e){}
 
@@ -16,14 +17,15 @@ namespace OOPDraw
         bool dragging = false;
         Point startOfDrag = Point.Empty;
         Point lastMousePosition = Point.Empty;
-        List<Line> lines = new List<Line>();
+        List<object> shapes = new List<object>();
 
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
             Graphics gr = e.Graphics;
-            foreach (Line line in lines)
+            foreach (dynamic shape in shapes)
             {
-                line.Draw(gr);
+                shape.Draw(gr);
+                Console.WriteLine();
             }
 
         }
@@ -32,15 +34,15 @@ namespace OOPDraw
         {
             dragging = true;
             startOfDrag = lastMousePosition = e.Location;
-            lines.Add(new Line(currentPen, e.X, e.Y));
+            shapes.Add(new Line(currentPen, e.X, e.Y));
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (dragging)
             {
-                Line currentLine = lines.Last();
-                currentLine.GrowTo(e.X, e.Y);
+                dynamic shape = shapes.Last();
+                shape.GrowTo(e.X, e.Y);
                 lastMousePosition = e.Location;
                 Refresh();
             }
