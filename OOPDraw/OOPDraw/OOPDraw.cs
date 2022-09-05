@@ -3,8 +3,20 @@ using System.Drawing;
 
 namespace OOPDraw
 {
+
+
+    public abstract class Shape
+    {
+        public abstract void Draw(Graphics g);
+
+        public abstract void GrowTo(int x2, int y2);
+    }
+
+
+
     public partial class OOPDraw : Form
     {
+
         public OOPDraw()
         {
             InitializeComponent();
@@ -19,12 +31,12 @@ namespace OOPDraw
         bool dragging = false;
         Point startOfDrag = Point.Empty;
         Point lastMousePosition = Point.Empty;
-        List<object> shapes = new List<object>();
+        List<Shape> shapes = new List<Shape>();
 
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
             Graphics gr = e.Graphics;
-            foreach (dynamic shape in shapes)
+            foreach (Shape shape in shapes)
             {
                 shape.Draw(gr);
                 Console.WriteLine();
@@ -51,7 +63,7 @@ namespace OOPDraw
         {
             if (dragging)
             {
-                dynamic shape = shapes.Last();
+                Shape shape = shapes.Last();
                 shape.GrowTo(e.X, e.Y);
                 lastMousePosition = e.Location;
                 Refresh();
@@ -104,10 +116,7 @@ namespace OOPDraw
         }
         
 
-
-
-
-        //Unne
+        //Ignore
 
         private void OOPDraw_Load(object sender, EventArgs e)
         {
@@ -129,11 +138,7 @@ namespace OOPDraw
 
 
 
-
-
-
-
-    public class Line
+    public class Line : Shape
     {
         public Pen Pen { get; private set; }
         public int X1 { get; private set; }
@@ -151,11 +156,11 @@ namespace OOPDraw
         public Line(Pen p, int x1, int y1) : this(p, x1, y1, x1, y1)
         {
         }
-        public void Draw(Graphics g)
+        public override void Draw(Graphics g)
         {
             g.DrawLine(Pen, X1, Y1, X2, Y2);
         }
-        public void GrowTo(int x2, int y2)
+        public override void GrowTo(int x2, int y2)
         {
             X2 = x2;
             Y2 = y2;
@@ -165,7 +170,7 @@ namespace OOPDraw
 
 
 
-    public class Rectangle
+    public class Rectangle : Shape
     {
         public Pen Pen { get; private set; }
         public int X1 { get; private set; }
@@ -183,7 +188,7 @@ namespace OOPDraw
         public Rectangle(Pen p, int x1, int y1) : this(p, x1, y1, x1, y1)
         {
         }
-        public void Draw(Graphics g)
+        public override void  Draw(Graphics g)
         {
             int x = Math.Min(X1, X2);
             int y = Math.Min(Y1, Y2);
@@ -191,7 +196,7 @@ namespace OOPDraw
             int h = Math.Max(Y1, Y2) - y;
             g.DrawRectangle(Pen, x, y, w, h);
         }
-        public void GrowTo(int x2, int y2)
+        public  override void GrowTo(int x2, int y2)
         {
             X2 = x2;
             Y2 = y2;
