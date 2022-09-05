@@ -92,6 +92,13 @@ namespace OOPDraw
             }
             currentPen = new Pen(color, currentPen.Width);
         }
+
+        //Test comment
+
+        private void OOPDraw_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

@@ -107,6 +107,7 @@
             this.Controls.Add(this.Canvas);
             this.Name = "OOPDraw";
             this.Text = "OOPDraw";
+            this.Load += new System.EventHandler(this.OOPDraw_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Canvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
