@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.Colour = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.Shape = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,11 +97,35 @@
             this.label2.Text = "Colour";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // Shape
+            // 
+            this.Shape.FormattingEnabled = true;
+            this.Shape.Items.AddRange(new object[] {
+            "Line",
+            "Rectangle"});
+            this.Shape.Location = new System.Drawing.Point(48, 239);
+            this.Shape.Name = "Shape";
+            this.Shape.Size = new System.Drawing.Size(121, 23);
+            this.Shape.TabIndex = 5;
+            this.Shape.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(48, 221);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Shape";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
             // OOPDraw
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(806, 646);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.Shape);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Colour);
             this.Controls.Add(this.label1);
@@ -121,5 +147,7 @@
         private Label label1;
         private ComboBox Colour;
         private Label label2;
+        private ComboBox Shape;
+        private Label label3;
     }
 }

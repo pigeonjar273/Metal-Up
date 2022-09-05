@@ -9,7 +9,9 @@ namespace OOPDraw
         {
             InitializeComponent();
             DoubleBuffered = true;
-            shapes.Add(new Rectangle(currentPen, 100, 100, 300, 200));
+            LineWidth.SelectedItem = "Medium";
+            Colour.SelectedItem = "Green";
+            Shape.SelectedItem = "Line";
         }
         private void Form1_Load(object sender, EventArgs e){}
 
@@ -34,7 +36,15 @@ namespace OOPDraw
         {
             dragging = true;
             startOfDrag = lastMousePosition = e.Location;
-            shapes.Add(new Line(currentPen, e.X, e.Y));
+            switch (Shape.Text)
+            {
+                case "Line":
+                    shapes.Add(new Line(currentPen, e.X, e.Y));
+                    break;
+                case "Rectangle":
+                    shapes.Add(new Rectangle(currentPen, e.X, e.Y));
+                    break;
+            }
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
@@ -92,10 +102,24 @@ namespace OOPDraw
             }
             currentPen = new Pen(color, currentPen.Width);
         }
+        
 
-        //Test comment
+
+
+
+        //Unne
 
         private void OOPDraw_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }
