@@ -103,7 +103,8 @@
             this.Shape.Items.AddRange(new object[] {
             "Line",
             "Rectangle",
-            "Ellipse"});
+            "Ellipse",
+            "Circle"});
             this.Shape.Location = new System.Drawing.Point(48, 239);
             this.Shape.Name = "Shape";
             this.Shape.Size = new System.Drawing.Size(121, 23);
