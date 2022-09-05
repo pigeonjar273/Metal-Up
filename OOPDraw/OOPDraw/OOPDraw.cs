@@ -21,7 +21,7 @@ namespace OOPDraw
             Pen = p;
             X1 = x1;
             Y1 = y1;
-            X2 = x2;      
+            X2 = x2;
             Y2 = y2;
         }
 
@@ -53,7 +53,7 @@ namespace OOPDraw
             Colour.SelectedItem = "Green";
             Shape.SelectedItem = "Line";
         }
-        private void Form1_Load(object sender, EventArgs e){}
+        private void Form1_Load(object sender, EventArgs e) { }
 
         Pen currentPen = new Pen(Color.Black);
         bool dragging = false;
@@ -83,6 +83,9 @@ namespace OOPDraw
                     break;
                 case "Rectangle":
                     shapes.Add(new Rectangle(currentPen, e.X, e.Y));
+                    break;
+                case "Ellipse":
+                    shapes.Add(new Ellipse(currentPen, e.X, e.Y));
                     break;
             }
         }
@@ -142,7 +145,7 @@ namespace OOPDraw
             }
             currentPen = new Pen(color, currentPen.Width);
         }
-        
+
 
         //Ignore
 
@@ -168,7 +171,7 @@ namespace OOPDraw
 
     public class Line : Shape
     {
-        
+
         public Line(Pen p, int x1, int y1, int x2, int y2) : base(p, x1, y1, x2, y2)
         {
         }
@@ -182,13 +185,13 @@ namespace OOPDraw
         {
             g.DrawLine(Pen, X1, Y1, X2, Y2);
         }
-        
+
 
     }
 
     public class Rectangle : Shape
     {
-        
+
         public Rectangle(Pen p, int x1, int y1, int x2, int y2) : base(p, x1, y1, x2, y2)
         {
         }
@@ -196,7 +199,7 @@ namespace OOPDraw
         {
         }
 
-        public override void  Draw(Graphics g)
+        public override void Draw(Graphics g)
         {
             int x = Math.Min(X1, X2);
             int y = Math.Min(Y1, Y2);
@@ -223,7 +226,11 @@ namespace OOPDraw
             int y = Math.Min(Y1, Y2);
             int w = Math.Max(X1, X2) - x;
             int h = Math.Max(Y1, Y2) - y;
-            g.DrawArc(Pen, x, y, w, h, 0F, 360F);
+            if (w > 0 && h > 0)
+            {
+                g.DrawArc(Pen, x, y, w, h, 0F, 360F);
+            }
+
         }
     }
 
