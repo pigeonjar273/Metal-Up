@@ -10,21 +10,21 @@
   <Class Name="OOPDraw.Shape">
     <Position X="8" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAEAAAAAAACgAAAAADAAAAAIABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOPDraw.Line">
     <Position X="5" Y="3.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAACgAAAAADAAAAAIABAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOPDraw.Rectangle">
     <Position X="10.5" Y="3.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAACgAAAAADAAAAAIABAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
