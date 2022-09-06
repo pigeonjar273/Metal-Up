@@ -1,44 +1,9 @@
 using System.Drawing;
 using System;
-
+using System.Drawing.Drawing2D;
 
 namespace OOPDraw
 {
-
-
-    public abstract class Shape
-    {
-
-        public Pen Pen { get; protected set; }
-        public int X1 { get; protected set; }
-        public int Y1 { get; protected set; }
-        public int X2 { get; protected set; }
-        public int Y2 { get; protected set; }
-
-
-        public Shape(Pen p, int x1, int y1, int x2, int y2)
-        {
-            Pen = p;
-            X1 = x1;
-            Y1 = y1;
-            X2 = x2;
-            Y2 = y2;
-        }
-
-        public Shape(Pen p, int x1, int y1) : this(p, x1, y1, x1, y1)
-        {
-
-        }
-
-        public virtual void GrowTo(int x2, int y2)
-        {
-            X2 = x2;
-            Y2 = y2;
-        }
-
-        public abstract void Draw(Graphics g);
-
-    }
 
 
 
@@ -52,6 +17,7 @@ namespace OOPDraw
             LineWidth.SelectedItem = "Medium";
             Colour.SelectedItem = "Green";
             Shape.SelectedItem = "Line";
+            Action.SelectedItem = "Draw";
         }
         private void Form1_Load(object sender, EventArgs e) { }
 
@@ -60,6 +26,43 @@ namespace OOPDraw
         Point startOfDrag = Point.Empty;
         Point lastMousePosition = Point.Empty;
         List<Shape> shapes = new List<Shape>();
+        Rectangle selectionBox;
+
+        private List<Shape> GetSelectedShapes()
+        {
+            return shapes.Where(s => s.Selected).ToList();
+        }
+
+        private void MoveSelectedShapes(MouseEventArgs e)
+        {
+            foreach (Shape s in GetSelectedShapes())
+            {
+                s.MoveBy(e.X - lastMousePosition.X, e.Y - lastMousePosition.Y);
+            }
+        }
+
+
+        private void SelectShapes()
+        {
+            DeselectAll();
+            foreach (Shape s in shapes)
+            {
+                if (selectionBox.FullySurrounds(s))
+                {
+                    s.Select();
+                }
+            }
+        }
+
+
+        private void DeselectAll()
+        {
+            foreach (Shape s in shapes)
+            {
+                s.Deselect();
+            }
+        }
+
 
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
@@ -70,12 +73,33 @@ namespace OOPDraw
                 Console.WriteLine();
             }
 
+            if (selectionBox != null)
+            {
+                selectionBox.Draw(gr);
+            }
         }
 
         private void Canvas_MouseDown(object sender, MouseEventArgs e)
         {
             dragging = true;
             startOfDrag = lastMousePosition = e.Location;
+            switch (Action.Text)
+            {
+                case "Draw":
+                    AddShape(e);
+                    break;
+                case "Select":
+                    Pen p = new Pen(Color.Black, 1.0F);
+                    selectionBox = new Rectangle(p, startOfDrag.X, startOfDrag.Y);
+                    break;
+            }
+
+        }
+
+        private void AddShape(MouseEventArgs e)
+        {
+
+
             switch (Shape.Text)
             {
                 case "Line":
@@ -91,14 +115,29 @@ namespace OOPDraw
                     shapes.Add(new Circle(currentPen, e.X, e.Y));
                     break;
             }
+
         }
 
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (dragging)
             {
-                Shape shape = shapes.Last();
-                shape.GrowTo(e.X, e.Y);
+                
+                switch (Action.Text)
+                {
+                    case "Move":
+                        MoveSelectedShapes(e);
+                        break;
+                    case "Draw":
+                        Shape shape = shapes.Last();
+                        shape.GrowTo(e.X, e.Y);
+                        break;
+                        
+                    case "Select":
+                        selectionBox.GrowTo(e.X, e.Y);
+                        SelectShapes();
+                        break;
+                }
                 lastMousePosition = e.Location;
                 Refresh();
             }
@@ -107,6 +146,9 @@ namespace OOPDraw
         private void Canvas_MouseUp(object sender, MouseEventArgs e)
         {
             dragging = false;
+            lastMousePosition = Point.Empty;
+            selectionBox = null;
+            Refresh();
         }
 
         private void label1_Click(object sender, EventArgs e) { }
@@ -150,6 +192,8 @@ namespace OOPDraw
         }
 
 
+
+
         //Ignore
 
         private void OOPDraw_Load(object sender, EventArgs e)
@@ -166,7 +210,96 @@ namespace OOPDraw
         {
 
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
+
+
+
+
+
+    public static class DrawingFucntions
+    {
+        public static void DrawClosedArc(Graphics g, Shape shape)
+        {
+            (int x, int y, int w, int h) = shape.EnclosingRectangle();
+            if (w > 0 && h > 0)
+            {
+                g.DrawArc(shape.Pen, x, y, w, h, 0F, 360F);
+            }
+        }
+    }
+
+
+
+    public abstract class Shape
+    {
+
+        public Pen Pen { get; protected set; }
+        public int X1 { get; protected set; }
+        public int Y1 { get; protected set; }
+        public int X2 { get; protected set; }
+        public int Y2 { get; protected set; }
+        public bool Selected { get; private set; }
+
+
+        public Shape(Pen p, int x1, int y1, int x2, int y2)
+        {
+            Pen = new Pen(p.Color, p.Width);
+            X1 = x1;
+            Y1 = y1;
+            X2 = x2;
+            Y2 = y2;
+        }
+
+        public Shape(Pen p, int x1, int y1) : this(p, x1, y1, x1, y1)
+        {
+
+        }
+
+        public virtual void GrowTo(int x2, int y2)
+        {
+            X2 = x2;
+            Y2 = y2;
+        }
+
+        public abstract void Draw(Graphics g);
+
+        public (int, int, int, int) EnclosingRectangle()
+        {
+            int x = Math.Min(X1, X2);
+            int y = Math.Min(Y1, Y2);
+            int w = Math.Max(X1, X2) - x;
+            int h = Math.Max(Y1, Y2) - y;
+            return (x, y, w, h);
+        }
+
+        public void MoveBy(int xDelta, int yDelta)
+        {
+            X1 += xDelta;
+            Y1 += yDelta;
+            X2 += xDelta;
+            Y2 += yDelta;
+        }
+
+        public void Select()
+        {
+            Selected = true;
+            Pen.DashStyle = DashStyle.Dash;
+        }
+
+        public void Deselect()
+        {
+            Selected = false;
+            Pen.DashStyle = DashStyle.Solid;
+        }
+
+    }
+
+
 
 
 
@@ -204,12 +337,18 @@ namespace OOPDraw
 
         public override void Draw(Graphics g)
         {
-            int x = Math.Min(X1, X2);
-            int y = Math.Min(Y1, Y2);
-            int w = Math.Max(X1, X2) - x;
-            int h = Math.Max(Y1, Y2) - y;
+            (int x, int y, int w, int h) = EnclosingRectangle();
             g.DrawRectangle(Pen, x, y, w, h);
         }
+
+        public bool FullySurrounds(Shape s)
+        {
+            (int x, int y, int w, int h) = this.EnclosingRectangle();
+            (int xs, int ys, int ws, int hs) = s.EnclosingRectangle();
+            return x < xs && y < ys && x + w > xs + ws && y + h > ys + hs;
+        }
+
+
     }
 
 
@@ -225,14 +364,7 @@ namespace OOPDraw
 
         public override void Draw(Graphics g)
         {
-            int x = Math.Min(X1, X2);
-            int y = Math.Min(Y1, Y2);
-            int w = Math.Max(X1, X2) - x;
-            int h = Math.Max(Y1, Y2) - y;
-            if (w > 0 && h > 0)
-            {
-                g.DrawArc(Pen, x, y, w, h, 0F, 360F);
-            }
+            DrawingFucntions.DrawClosedArc(g, this);
 
         }
     }
@@ -251,14 +383,7 @@ namespace OOPDraw
 
         public override void Draw(Graphics g)
         {
-            int x = Math.Min(X1, X2);
-            int y = Math.Min(Y1, Y2);
-            int w = Math.Max(X1, X2) - x;
-            int h = Math.Max(Y1, Y2) - y;
-            if (w > 0 && h > 0)
-            {
-                g.DrawArc(Pen, x, y, w, h, 0F, 360F);
-            }
+            DrawingFucntions.DrawClosedArc(g, this);
 
         }
 
@@ -270,13 +395,6 @@ namespace OOPDraw
             Y2 = Y1 + diameter;
         }
 
-
-
     }
-
-
-
-
-
 
 }

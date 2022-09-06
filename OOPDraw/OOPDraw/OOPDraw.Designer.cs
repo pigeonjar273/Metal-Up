@@ -35,15 +35,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.Shape = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.lblAction = new System.Windows.Forms.Label();
+            this.Action = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Canvas)).BeginInit();
             this.SuspendLayout();
             // 
             // Canvas
             // 
             this.Canvas.BackColor = System.Drawing.SystemColors.Window;
-            this.Canvas.Location = new System.Drawing.Point(252, 24);
+            this.Canvas.Location = new System.Drawing.Point(175, 24);
             this.Canvas.Name = "Canvas";
-            this.Canvas.Size = new System.Drawing.Size(556, 621);
+            this.Canvas.Size = new System.Drawing.Size(683, 954);
             this.Canvas.TabIndex = 0;
             this.Canvas.TabStop = false;
             this.Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.Canvas_Paint);
@@ -58,7 +60,7 @@
             "Thin",
             "Medium",
             "Thick"});
-            this.LineWidth.Location = new System.Drawing.Point(48, 71);
+            this.LineWidth.Location = new System.Drawing.Point(12, 71);
             this.LineWidth.Name = "LineWidth";
             this.LineWidth.Size = new System.Drawing.Size(121, 23);
             this.LineWidth.TabIndex = 1;
@@ -67,7 +69,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 53);
+            this.label1.Location = new System.Drawing.Point(37, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 15);
             this.label1.TabIndex = 2;
@@ -81,7 +83,7 @@
             "Red",
             "Green",
             "Blue"});
-            this.Colour.Location = new System.Drawing.Point(48, 145);
+            this.Colour.Location = new System.Drawing.Point(12, 145);
             this.Colour.Name = "Colour";
             this.Colour.Size = new System.Drawing.Size(121, 23);
             this.Colour.TabIndex = 3;
@@ -90,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(48, 127);
+            this.label2.Location = new System.Drawing.Point(47, 127);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 15);
             this.label2.TabIndex = 4;
@@ -105,7 +107,7 @@
             "Rectangle",
             "Ellipse",
             "Circle"});
-            this.Shape.Location = new System.Drawing.Point(48, 239);
+            this.Shape.Location = new System.Drawing.Point(12, 211);
             this.Shape.Name = "Shape";
             this.Shape.Size = new System.Drawing.Size(121, 23);
             this.Shape.TabIndex = 5;
@@ -114,18 +116,42 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(48, 221);
+            this.label3.Location = new System.Drawing.Point(51, 193);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(39, 15);
             this.label3.TabIndex = 6;
             this.label3.Text = "Shape";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Location = new System.Drawing.Point(48, 261);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(42, 15);
+            this.lblAction.TabIndex = 7;
+            this.lblAction.Text = "Action";
+            this.lblAction.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // Action
+            // 
+            this.Action.FormattingEnabled = true;
+            this.Action.Items.AddRange(new object[] {
+            "Draw",
+            "Move",
+            "Select"});
+            this.Action.Location = new System.Drawing.Point(12, 279);
+            this.Action.Name = "Action";
+            this.Action.Size = new System.Drawing.Size(121, 23);
+            this.Action.TabIndex = 8;
+            // 
             // OOPDraw
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(806, 646);
+            this.ClientSize = new System.Drawing.Size(870, 990);
+            this.Controls.Add(this.Action);
+            this.Controls.Add(this.lblAction);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Shape);
             this.Controls.Add(this.label2);
@@ -151,5 +177,7 @@
         private Label label2;
         private ComboBox Shape;
         private Label label3;
+        private Label lblAction;
+        private ComboBox Action;
     }
 }
