@@ -119,7 +119,7 @@ namespace OOPDraw
         {
             if (dragging)
             {
-                
+
                 switch (Action.Text)
                 {
                     case "Move":
@@ -129,7 +129,7 @@ namespace OOPDraw
                         Shape shape = shapes.Last();
                         shape.GrowTo(e.X, e.Y);
                         break;
-                        
+
                     case "Select":
                         selectionBox.GrowTo(e.X, e.Y);
                         SelectShapes();
@@ -203,6 +203,50 @@ namespace OOPDraw
             Refresh();
         }
 
+        private void DeleteSelectedShapes()
+        {
+            foreach (Shape s in GetSelectedShapes())
+            {
+                shapes.Remove(s);
+            }
+            Refresh();
+        }
+
+        private void Action_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (Action.Text)
+            {
+                case "Group":
+                    GroupSelectedShapes();
+                    break;
+                case "Delete":
+                    DeleteSelectedShapes();
+                    break;
+                case "Duplicate":
+                    DuplicateSelectedShapes();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void DuplicateSelectedShapes()
+        {
+            foreach (Shape selected in GetSelectedShapes())
+            {
+                selected.Deselect();
+                Shape clone = selected;
+                clone.MoveBy(50, 50);
+                clone.Select();
+                shapes.Add(clone);
+            }
+
+            Refresh();
+        }
+
+
+
+
 
         //Ignore
 
@@ -226,18 +270,7 @@ namespace OOPDraw
 
         }
 
-        private void Action_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (Action.Text)
-            {
-                case "Group":
-                    GroupSelectedShapes();
-                    break;
 
-                default:
-                    break;
-            }
-        }
     }
 
 
@@ -320,6 +353,10 @@ namespace OOPDraw
             Pen.DashStyle = DashStyle.Solid;
         }
 
+        public abstract Shape Clone();
+
+
+
     }
 
     public class CompositeShape : Shape
@@ -362,6 +399,22 @@ namespace OOPDraw
         }
 
 
+        public override Shape Clone()
+        {
+            List<Shape> componentsClone = new List<Shape>();
+
+            foreach (Shape m in Components)
+            {
+                Shape clone = m;
+                componentsClone.Add(clone);
+            }
+
+
+            CompositeShape compositeClone = new CompositeShape(componentsClone);
+
+            return compositeClone;
+        }
+
     }
 
 
@@ -385,6 +438,15 @@ namespace OOPDraw
         {
             g.DrawLine(Pen, X1, Y1, X2, Y2);
         }
+
+
+        public override Shape Clone()
+        {
+            Line clone = new Line(Pen, X1, Y1, X2, Y2);
+
+            return clone;
+        }
+
 
 
     }
@@ -412,7 +474,11 @@ namespace OOPDraw
             return x < xs && y < ys && x + w > xs + ws && y + h > ys + hs;
         }
 
-
+        public override Shape Clone()
+        {
+            Rectangle clone = new Rectangle(Pen, X1, Y1, X2, Y2);
+            return clone;
+        }
     }
 
 
@@ -430,6 +496,12 @@ namespace OOPDraw
         {
             DrawingFucntions.DrawClosedArc(g, this);
 
+        }
+
+        public override Shape Clone()
+        {
+            Ellipse clone = new Ellipse(Pen, X1, Y1, X2, Y2);
+            return clone;
         }
     }
 
@@ -458,6 +530,14 @@ namespace OOPDraw
             X2 = X1 + diameter;
             Y2 = Y1 + diameter;
         }
+
+        public override Shape Clone()
+        {
+            Circle clone = new Circle(Pen, X1, Y1, X2, Y2);
+            return clone;
+        }
+
+
 
     }
 

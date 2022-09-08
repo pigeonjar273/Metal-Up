@@ -3,42 +3,42 @@
   <Class Name="OOPDraw.Shape" Collapsed="true">
     <Position X="5.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAIAACgAAAAADAAAAAIABQAAAAAAAQAAAIAI=</HashCode>
+      <HashCode>AAAAEAAAAIAACgAAAAADAAAAAIABQAAAAAAAQAAAIBI=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOPDraw.Rectangle" Collapsed="true">
     <Position X="1.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOPDraw.Line" Collapsed="true">
     <Position X="7" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOPDraw.Circle" Collapsed="true">
     <Position X="5.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAEAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OOPDraw.Ellipse" Collapsed="true">
     <Position X="3.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OOPDraw.CompositeShape">
+  <Class Name="OOPDraw.CompositeShape" Collapsed="true">
     <Position X="9" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAoAAAAAAAACAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAoAAAAAAAACAAAAAAAAAAAAAAAAAIBA=</HashCode>
       <FileName>OOPDraw.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
