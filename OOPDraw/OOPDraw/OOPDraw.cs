@@ -188,7 +188,20 @@ namespace OOPDraw
             currentPen = new Pen(color, currentPen.Width);
         }
 
-
+        private void GroupSelectedShapes()
+        {
+            var members = GetSelectedShapes();
+            if (members.Count < 2) return; //Group has no effect
+            CompositeShape compS = new CompositeShape(members);
+            compS.Select();
+            shapes.Add(compS);
+            foreach (Shape m in members)
+            {
+                shapes.Remove(m);
+                m.Deselect();
+            }
+            Refresh();
+        }
 
 
         //Ignore
@@ -211,6 +224,19 @@ namespace OOPDraw
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Action_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (Action.Text)
+            {
+                case "Group":
+                    GroupSelectedShapes();
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
@@ -328,6 +354,7 @@ namespace OOPDraw
             {
                 m.MoveBy(xDelta, yDelta);
             }
+
             X1 += xDelta;
             Y1 += yDelta;
             X2 += xDelta;

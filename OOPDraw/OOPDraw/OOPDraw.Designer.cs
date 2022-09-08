@@ -139,11 +139,13 @@
             this.Action.Items.AddRange(new object[] {
             "Draw",
             "Move",
-            "Select"});
+            "Select",
+            "Group"});
             this.Action.Location = new System.Drawing.Point(12, 279);
             this.Action.Name = "Action";
             this.Action.Size = new System.Drawing.Size(121, 23);
             this.Action.TabIndex = 8;
+            this.Action.SelectedIndexChanged += new System.EventHandler(this.Action_SelectedIndexChanged);
             // 
             // OOPDraw
             // 
