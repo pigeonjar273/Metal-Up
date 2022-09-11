@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace OOPRecordsModel
@@ -11,10 +12,20 @@ namespace OOPRecordsModel
 
         private List<Student> Students = new List<Student>();
 
+        private const string fileName = @"C:\Users\micha\source\repos\pigeonjar273\Metal-Up\OOPRecords\OOPRecords.ConsoleUI\StudentsFile.json";
+
         public StudentRepository()
         {
-            var initialiser = new Initialiser();
-            initialiser.Seed(this);
+            if (File.Exists(fileName))
+            {
+                Load();
+            }
+            else
+            {
+                var initialiser = new Initialiser();
+                initialiser.Seed(this);
+                SaveAll();
+            }
         }
 
 
@@ -43,8 +54,31 @@ namespace OOPRecordsModel
             s.LastName = lastName;
             s.DateOfBirth = dob;
             Add(s);
+            SaveAll();
             return s;
         }
+
+        public void Load()
+        {
+            using (StreamReader reader = new StreamReader(fileName))
+            {
+                string json = reader.ReadToEnd();
+                Students = JsonSerializer.Deserialize<List<Student>>(json);
+            }
+        }
+
+        public void SaveAll()
+        {
+            using (StreamWriter writer = new StreamWriter(fileName))
+            {
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                string json = JsonSerializer.Serialize(Students, options);
+                writer.Write(json);
+                writer.Flush();
+            }
+
+        }
+
 
 
     }

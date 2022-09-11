@@ -52,7 +52,7 @@ namespace OOPRecords.ConsoleUI
         private static void Quit()
         {
             Console.Write("Shutting down program...");
-            Console.ReadKey();
+            Console.Read();
             Environment.Exit(0);
         }
     }
