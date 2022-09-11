@@ -23,14 +23,14 @@ namespace OOPRecordsModel
             Students.Add(s);
         }
 
-        public IEnumerable<Student> ALlStudents()
+        public IEnumerable<Student> AllStudents()
         {
             return Students;
         }
 
         public IEnumerable<Student> FindStudentByLastName(string lastName)
         {
-            return from s in ALlStudents()
+            return from s in AllStudents()
                    where s.LastName.ToUpper().Contains(lastName.ToUpper())
                    select s;
 
