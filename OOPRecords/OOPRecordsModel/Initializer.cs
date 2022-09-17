@@ -22,6 +22,27 @@ namespace OOPRecordsModel
             var pyt = NewStudent(students, "Petra", "Python", "17/06/2003");
             var has = NewStudent(students, "Harry", "Haskell", "08/04/2003");
             var cob = NewStudent(students, "Corinie", "Cobol", "28/02/2003");
+
+            var teachers = context.Teachers;
+            var dec = NewTeacher(teachers, "Mr.", "Deckerd");
+            var tyr = NewTeacher(teachers, "Dr.", "Tyrell");
+            var maj = NewTeacher(teachers, "Maj.", "Major");
+            var dou = NewTeacher(teachers, "Mrs.", "Doubtfire");
+            var doo = NewTeacher(teachers, "Dr.", "Doolittle");
+            var str = NewTeacher(teachers, "Dr.", "Strangelove");
+            var iss = NewTeacher(teachers, "Ms.", "Issippi");
+            var and = NewTeacher(teachers, "Ms.", "Andrist");
+            var jek = NewTeacher(teachers, "Dr.", "Jekyll");
+            var hyd = NewTeacher(teachers, "Mr.", "Hyde");
+            var rob = NewTeacher(teachers, "Mrs.", "Robinson");
+            var wor = NewTeacher(teachers, "Mrs.", "Worthington");
+            var hu = NewTeacher(teachers, "Dr.", "Hu");
+            var ove = NewTeacher(teachers, "Cpt.", "Over");
+
+            alg.Tutor = dec;
+            frt.Tutor =  tyr;
+            jav.Tutor = maj;
+
         }
 
         private Student NewStudent(DbSet<Student> students, string firtsName, string lastName, string dob)
@@ -33,5 +54,17 @@ namespace OOPRecordsModel
             students.Add(s);
             return s;
         }
+
+        private Teacher NewTeacher(DbSet<Teacher> teachers, string title, string lastName)
+        {
+            var t = new Teacher();
+            t.Title = title;
+            t.LastName = lastName;
+            teachers.Add(t);
+            return t;
+        }
+
+
+
     }
 }
