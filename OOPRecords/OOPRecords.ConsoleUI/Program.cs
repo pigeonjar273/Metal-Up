@@ -1,14 +1,16 @@
 ﻿using MetalUp;
-using OOPRecordsModel;
 using System;
+using System.Data.Entity;
+using OOPRecordsModel;
 
-namespace OOPRecords.ConsoleUI
+namespace OOPRecords
 {
     class Program
     {
         static void Main()
         {
-            var students = new StudentRepository();
+            var context = new DatabaseContext("OOPRecords");
+            var students = new StudentRepository(context);
             while (true)
             {
                 Console.Clear();

@@ -4,39 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace OOPRecordsModel
 {
+
     public class StudentRepository
     {
 
-        private List<Student> Students = new List<Student>();
+        private DatabaseContext Context;
 
-        private const string fileName = @"C:\Users\micha\source\repos\pigeonjar273\Metal-Up\OOPRecords\OOPRecords.ConsoleUI\StudentsFile.json";
+        
 
-        public StudentRepository()
+        public StudentRepository(DatabaseContext context)
         {
-            if (File.Exists(fileName))
-            {
-                Load();
-            }
-            else
-            {
-                var initialiser = new Initialiser();
-                initialiser.Seed(this);
-                SaveAll();
-            }
+            Context = context;
         }
 
 
         public void Add(Student s)
         {
-            Students.Add(s);
+            Context.Students.Add(s);
+            Context.SaveChanges();
         }
 
         public IEnumerable<Student> AllStudents()
         {
-            return Students;
+            return Context.Students;
         }
 
         public IEnumerable<Student> FindStudentByLastName(string lastName)
@@ -54,31 +48,8 @@ namespace OOPRecordsModel
             s.LastName = lastName;
             s.DateOfBirth = dob;
             Add(s);
-            SaveAll();
             return s;
         }
-
-        public void Load()
-        {
-            using (StreamReader reader = new StreamReader(fileName))
-            {
-                string json = reader.ReadToEnd();
-                Students = JsonSerializer.Deserialize<List<Student>>(json);
-            }
-        }
-
-        public void SaveAll()
-        {
-            using (StreamWriter writer = new StreamWriter(fileName))
-            {
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string json = JsonSerializer.Serialize(Students, options);
-                writer.Write(json);
-                writer.Flush();
-            }
-
-        }
-
 
 
     }
